@@ -1,6 +1,7 @@
+
 # Github Rule
 ## Commit Message
-> #`issue-num` `commit-type`: description
+> `commit-type`: description
 ```
 #3 Feat: getProfileTab
 ```
@@ -29,7 +30,7 @@
 - develop branch에서 새로운 기능에 대한 feature 브랜치를 분기하여 사용합니다.
 - 각 기능 개발 완료 후, develop 브랜치로 PR을 날려 merge합니다.
     - merge한 뒤, 이후에 사용하지 않는 브랜치라면 삭제하는 것이 좋습니다.
-> `branch-type`/`issue-num`-description
+> `branch-type`/description
 ```
 feature/13-like-post
 ```
