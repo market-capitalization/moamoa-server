@@ -3,7 +3,7 @@
 ## Commit Message
 > `commit-type`: description
 ```
-#3 Feat: getProfileTab
+Feat: getProfileTab
 ```
 - `commit-type`
     - Build : 빌드 관련 수정
