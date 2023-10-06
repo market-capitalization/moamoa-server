@@ -30,13 +30,13 @@ public class Meeting extends BaseEntity {
 
     private String name;
 
-    private int attendanceCount = 2;
+    private int attendanceCount;
 
     @Enumerated(STRING)
-    private ParticipantType particiPantType = FAMILY;
+    private ParticipantType particiPantType;
 
     @Enumerated(STRING)
-    private PurposeType purposeType = RETIREMENT;
+    private PurposeType purposeType;
 
     // for demo
     private Long totalInvestment = 50000000L;
