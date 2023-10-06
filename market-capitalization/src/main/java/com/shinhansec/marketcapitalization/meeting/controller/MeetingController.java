@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "/api/v1/meeting")
+@RequestMapping("/api/v1/meeting")
 public class MeetingController {
     private final MeetingService meetingService;
 
