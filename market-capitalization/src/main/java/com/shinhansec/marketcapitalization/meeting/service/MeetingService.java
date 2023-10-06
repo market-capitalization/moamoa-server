@@ -2,7 +2,6 @@ package com.shinhansec.marketcapitalization.meeting.service;
 
 
 import com.shinhansec.marketcapitalization.common.BaseException;
-import com.shinhansec.marketcapitalization.common.BaseResponse;
 import com.shinhansec.marketcapitalization.common.BaseResponseStatus;
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
 import com.shinhansec.marketcapitalization.meeting.dto.GetAllMeetingResDto;
