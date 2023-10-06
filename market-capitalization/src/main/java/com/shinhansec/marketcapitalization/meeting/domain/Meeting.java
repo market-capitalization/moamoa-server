@@ -41,7 +41,7 @@ public class Meeting extends BaseEntity {
     // for demo
     private Long totalInvestment = 50000000L;
 
-    private int profitTarget = 100000000;
+    private int profitTarget;
 
     private LocalDateTime deadlineDate;
 

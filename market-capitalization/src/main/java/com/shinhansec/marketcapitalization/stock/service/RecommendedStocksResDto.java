@@ -14,13 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecommendedStocksResDto {
-    private String recommendedCategory;
     private int count;
     private List<RecommendedStock> recommendedStockList = new ArrayList<>();
 
     @Builder
-    public RecommendedStocksResDto(String recommendedCategory, List<Pair<Stock, Boolean>> stockSuggestionPairList) {
-        this.recommendedCategory = recommendedCategory;
+    public RecommendedStocksResDto(List<Pair<Stock, Boolean>> stockSuggestionPairList) {
         this.count = stockSuggestionPairList.size();
         for (Pair<Stock, Boolean> stockBooleanPair : stockSuggestionPairList) {
             this.recommendedStockList.add(new RecommendedStock(stockBooleanPair));

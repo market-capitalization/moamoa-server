@@ -25,6 +25,10 @@ public class MemberController {
         }
     }
 
+
+    /**
+     * deprecated
+     */
     @PatchMapping("/{memberId}")
     public BaseResponse<?> modifyUserInfo(@RequestHeader("authorization") Long loginId,
                                           @PathVariable("memberId") Long memberId,

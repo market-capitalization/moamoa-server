@@ -8,15 +8,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.temporal.ValueRange;
 import java.util.List;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
     // TODO: 테스트 필요
-    @Query(value = "select distinct s from Stock s right join Suggestion su where su.status = :status and " +
-            "su.member = (select mem from Member mem where mem = (select p.member from Participation p where p.meeting = :meeting)) " +
-            "order by count(s.id)")
+    @Query(value = "select distinct s from Stock s left join Suggestion su on su.status =:status and " +
+            "su.member = any (select p.member from Participation as p where p.meeting = :meeting)")
     List<Stock> findMostRecommendedStockInMeeting(Meeting meeting, BaseEntityStatus status);
 
     List<Stock> findByAgeAndGender(String age, Gender gender);

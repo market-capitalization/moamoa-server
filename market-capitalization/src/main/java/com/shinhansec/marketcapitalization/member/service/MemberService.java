@@ -18,13 +18,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public BaseResponseStatus saveMember(NewMemberReqDto reqDto) throws BaseException {
+    public Long saveMember(NewMemberReqDto reqDto) throws BaseException {
         try {
             if (checkDuplicateNick(reqDto.getNickname()))
                 throw new BaseException(DUPLICATE_NICK);
             Member newMember = reqDto.toEntity();
             memberRepository.save(newMember);
-            return SUCCESS;
+            return newMember.getId();
         } catch (BaseException e) {
             throw e;
         } catch (Exception e) {

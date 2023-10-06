@@ -49,13 +49,13 @@ public class SuggestionService {
                     ).collect(Collectors.toList());
 
             return RecommendedStocksResDto.builder()
-                    .recommendedCategory("test category")
                     .stockSuggestionPairList(pairList)
                     .build();
 
         } catch (BaseException e) {
             throw e;
         } catch (Exception e) {
+            System.err.println(e);
             throw new BaseException(DATABASE_ERROR);
         }
     }
