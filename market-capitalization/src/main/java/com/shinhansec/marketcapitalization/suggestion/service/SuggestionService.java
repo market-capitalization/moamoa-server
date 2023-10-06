@@ -11,6 +11,7 @@ import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
 import com.shinhansec.marketcapitalization.stock.service.RecommendedStocksResDto;
 import com.shinhansec.marketcapitalization.suggestion.domain.Suggestion;
 import com.shinhansec.marketcapitalization.suggestion.repository.SuggestionRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,7 @@ public class SuggestionService {
         }
     }
 
+    @Transactional
     public BaseResponseStatus saveNewSuggestion(Long userId, Long stockId) throws BaseException {
         try {
             Member member = memberRepository.findById(userId).orElseThrow(
