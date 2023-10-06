@@ -33,4 +33,14 @@ public class MeetingController {
             return new BaseResponse<>(e.getStatus());
         }
     }
+
+    @PostMapping("/{meetingId}")
+    public BaseResponse<?> participateMeeting(@RequestHeader("authorization") Long userId,
+                                              @PathVariable("meetingId") String meetingId) {
+        try {
+            return new BaseResponse<>(meetingService.participateMeeting(userId, meetingId));
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
 }

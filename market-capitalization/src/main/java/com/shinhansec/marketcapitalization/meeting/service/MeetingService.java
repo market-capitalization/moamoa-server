@@ -2,6 +2,7 @@ package com.shinhansec.marketcapitalization.meeting.service;
 
 
 import com.shinhansec.marketcapitalization.common.BaseException;
+import com.shinhansec.marketcapitalization.common.BaseResponse;
 import com.shinhansec.marketcapitalization.common.BaseResponseStatus;
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
 import com.shinhansec.marketcapitalization.meeting.dto.GetAllMeetingResDto;
@@ -68,4 +69,29 @@ public class MeetingService {
         }
     }
 
+    @Transactional
+    public BaseResponseStatus participateMeeting(Long userId, String meetingId) throws BaseException {
+        try {
+            Member member = memberRepository.findById(userId).orElseThrow(
+                    () -> new BaseException(INVALID_MEMBER_ID));
+
+            Meeting meeting = meetingRepository.findById(meetingId).orElseThrow(
+                    () -> new BaseException(INVALID_MEETING_ID));
+
+            if (participationRepository.existsByMemberAndMeeting(member, meeting)) {
+                throw new BaseException(ALREADY_PARTICIPATE);
+            }
+
+            Participation participation = Participation.builder()
+                    .member(member)
+                    .meeting(meeting).build();
+            participationRepository.save(participation);
+
+            return SUCCESS;
+        } catch (BaseException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

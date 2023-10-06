@@ -18,7 +18,10 @@ public enum BaseResponseStatus {
      * 3000: Response Error
      */
     INVALID_MEMBER_ID(false, 3000, "유저 아이디가 유효하지 않습니다."),
-    FULL_MEETING(false, 3001, "이미 모임이 가득 찼습니다"),
+
+    INVALID_MEETING_ID(false, 3200, "모임 아이디가 유효하지 않습니다."),
+    FULL_MEETING(false, 3201, "이미 모임이 가득 찼습니다"),
+    ALREADY_PARTICIPATE(false, 3202, "이미 해당 모임에 가입 중인 유저입니다."),
 
     /**
      * 4000: DB Error
