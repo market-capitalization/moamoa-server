@@ -29,10 +29,12 @@ public class SuggestedStockResDto {
 
     @Data
     public static class SuggestedStock {
+        private Long stockId;
         private String stockName;
         private Boolean isLiked;
 
         public SuggestedStock(Stock stock, Boolean isLiked) {
+            this.stockId = stock.getId();
             this.stockName = stock.getStockName();
             this.isLiked = isLiked;
         }

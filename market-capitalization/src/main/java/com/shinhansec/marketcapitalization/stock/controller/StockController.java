@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/stock")
 public class StockController {
-    private StockService stockService;
+    private final StockService stockService;
 
     @GetMapping("")
     public BaseResponse<?> getSuggestedStock(@RequestHeader("authorization") Long loginUserId) {

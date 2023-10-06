@@ -117,8 +117,10 @@ public class StockService {
                 ageCharArray[2] = 'e';
             }
 
-            ageCharArray[1] = 0;
-            age = Arrays.toString(ageCharArray);
+            ageCharArray[1] = '0';
+            age = new String(ageCharArray);
+
+            System.out.println(age);
 
             List<Pair<Stock, Boolean>> stockPairList = stockRepository.findByAgeAndGender(age, member.getGender()).stream().map(
                     stock -> {
@@ -135,6 +137,7 @@ public class StockService {
         } catch (BaseException e) {
             throw e;
         } catch (Exception e) {
+            System.err.println(e);
             throw new BaseException(DATABASE_ERROR);
         }
     }
