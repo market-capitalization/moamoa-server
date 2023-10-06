@@ -15,6 +15,8 @@ public enum BaseResponseStatus {
      */
     NOT_YOUR_PROFILE(false, 2000, "자신의 프로필이 아니므로 수정이 불가능합니다."),
 
+    NOT_YOUR_MEETING(false, 2200, "자신의 모임이 아니므로 거래가 불가능합니다."),
+
     /**
      * 3000: Response Error
      */
@@ -27,6 +29,10 @@ public enum BaseResponseStatus {
     NOT_MEETING_MEMBER(false, 3203, "해당 모임의 접근 권한이 없는 유저입니다."),
 
     INVALID_STOCK_ID(false, 3400, "주식 아이디가 유효하지 않습니다."),
+    INVALID_SELLING(false, 3401, "판매할 수 없습니다."),
+    INVALID_BUYING(false, 3402, "구매할 수 없습니다."),
+    INVALID_TRADING(false, 3403, "0개 이상의 개수를 선택해야 합니다."),
+
 
     /**
      * 4000: DB Error

@@ -1,6 +1,7 @@
 package com.shinhansec.marketcapitalization.meeting.domain;
 
 import com.shinhansec.marketcapitalization.common.BaseEntity;
+import com.shinhansec.marketcapitalization.common.BaseException;
 import com.shinhansec.marketcapitalization.participation.domain.Participation;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.shinhansec.marketcapitalization.common.BaseResponseStatus.INVALID_BUYING;
 import static com.shinhansec.marketcapitalization.meeting.domain.ParticipantType.FAMILY;
 import static com.shinhansec.marketcapitalization.meeting.domain.PurposeType.RETIREMENT;
 import static jakarta.persistence.EnumType.STRING;
@@ -37,7 +39,7 @@ public class Meeting extends BaseEntity {
     private PurposeType purposeType = RETIREMENT;
 
     // for demo
-    private int totalInvestment = 50000000;
+    private Long totalInvestment = 50000000L;
 
     private int profitTarget = 100000000;
 
@@ -56,6 +58,16 @@ public class Meeting extends BaseEntity {
 
     private Boolean checkParticipateEnable() {
         return this.participationList.size() < this.attendanceCount;
+    }
+
+    public void buyStock(long price) throws BaseException {
+        if (this.totalInvestment < price)
+            throw new BaseException(INVALID_BUYING);
+        this.totalInvestment -= price;
+    }
+
+    public void sellStock(long price) {
+        this.totalInvestment += price;
     }
 
     @Builder(builderMethodName = "testBuild")
