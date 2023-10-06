@@ -17,7 +17,7 @@ public enum BaseResponseStatus {
     /**
      * 3000: Response Error
      */
-
+    INVALID_MEMBER_ID(false, 3000, "유저 아이디가 유효하지 않습니다."),
 
     /**
      * 4000: DB Error

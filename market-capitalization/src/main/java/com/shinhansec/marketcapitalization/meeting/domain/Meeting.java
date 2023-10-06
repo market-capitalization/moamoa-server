@@ -1,16 +1,24 @@
 package com.shinhansec.marketcapitalization.meeting.domain;
 
 import com.shinhansec.marketcapitalization.common.BaseEntity;
+import com.shinhansec.marketcapitalization.participation.domain.Participation;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.shinhansec.marketcapitalization.meeting.domain.ParticipantType.FAMILY;
+import static com.shinhansec.marketcapitalization.meeting.domain.PurposeType.RETIREMENT;
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Meeting extends BaseEntity {
     @Id
     @Column(name = "meeting_id")
@@ -20,17 +28,40 @@ public class Meeting extends BaseEntity {
 
     private String name;
 
-    private int attendanceCount;
+    private int attendanceCount = 2;
 
     @Enumerated(STRING)
-    private ParticipantType particiPantType;
+    private ParticipantType particiPantType = FAMILY;
 
     @Enumerated(STRING)
-    private PurposeType purposeType;
+    private PurposeType purposeType = RETIREMENT;
 
-    private int totalInvestment;
+    // for demo
+    private int totalInvestment = 50000000;
 
-    private int profitTarget;
+    private int profitTarget = 100000000;
 
     private LocalDateTime deadlineDate;
+
+    @OneToMany(mappedBy = "meeting")
+    private List<Participation> participationList = new ArrayList<>();
+
+    public int participate(Participation participation) {
+        if (checkParticipateEnable()) {
+            participationList.add(participation);
+            return 1;
+        }
+        return -1;
+    }
+
+    private Boolean checkParticipateEnable() {
+        return this.participationList.size() < this.attendanceCount;
+    }
+
+    @Builder(builderMethodName = "testBuild")
+    public Meeting(String name, int attendanceCount, LocalDateTime deadlineDate) {
+        this.name = name;
+        this.attendanceCount = attendanceCount;
+        this.deadlineDate = deadlineDate;
+    }
 }
