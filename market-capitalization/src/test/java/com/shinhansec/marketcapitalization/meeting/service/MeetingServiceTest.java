@@ -2,6 +2,7 @@ package com.shinhansec.marketcapitalization.meeting.service;
 
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
 import com.shinhansec.marketcapitalization.member.domain.Member;
+import com.shinhansec.marketcapitalization.member.repository.MemberRepository;
 import com.shinhansec.marketcapitalization.member.service.MemberService;
 import com.shinhansec.marketcapitalization.participation.domain.Participation;
 import com.shinhansec.marketcapitalization.participation.service.ParticipationService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @SpringBootTest
 class MeetingServiceTest {
@@ -21,6 +23,9 @@ class MeetingServiceTest {
     MemberService memberService;
 
     @Autowired
+    MemberRepository memberRepository;
+
+    @Autowired
     ParticipationService participationService;
 
     @Test
@@ -28,13 +33,12 @@ class MeetingServiceTest {
         // given
         Meeting testMeetingTest = Meeting.testBuild()
                 .deadlineDate(LocalDateTime.now())
-                .name("test meeting test")
+                .name("test meeting 2")
                 .attendanceCount(1).build();
 
         meetingService.saveMeeting(testMeetingTest);
 
-
-        Member member = new Member("test user 1");
+        Member member = memberRepository.findById(1L).get();
         Participation participation = Participation.builder()
                 .member(member)
                 .meeting(testMeetingTest).build();
