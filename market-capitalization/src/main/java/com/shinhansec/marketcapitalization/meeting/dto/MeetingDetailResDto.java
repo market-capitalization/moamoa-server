@@ -26,7 +26,7 @@ public class MeetingDetailResDto {
 
     private PurposeType purposeType;
 
-    private int totalInvestment;
+    private long totalInvestment;
 
     private int profitTarget;
 

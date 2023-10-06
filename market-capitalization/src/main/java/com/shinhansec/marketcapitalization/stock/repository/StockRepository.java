@@ -2,6 +2,7 @@ package com.shinhansec.marketcapitalization.stock.repository;
 
 import com.shinhansec.marketcapitalization.common.BaseEntityStatus;
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
+import com.shinhansec.marketcapitalization.member.domain.Gender;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,6 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
             "su.member = (select mem from Member mem where mem = (select p.member from Participation p where p.meeting = :meeting)) " +
             "order by count(s.id)")
     List<Stock> findMostRecommendedStockInMeeting(Meeting meeting, BaseEntityStatus status);
+
+    List<Stock> findByAgeAndGender(String age, Gender gender);
 }

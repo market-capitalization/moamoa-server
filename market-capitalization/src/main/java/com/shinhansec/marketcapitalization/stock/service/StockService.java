@@ -10,11 +10,18 @@ import com.shinhansec.marketcapitalization.participation.repository.Participatio
 import com.shinhansec.marketcapitalization.portfolio.domain.Portfolio;
 import com.shinhansec.marketcapitalization.portfolio.repository.PortfolioRepository;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
+import com.shinhansec.marketcapitalization.stock.dto.SuggestedStockResDto;
 import com.shinhansec.marketcapitalization.stock.dto.TradeStockReqDto;
 import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
+import com.shinhansec.marketcapitalization.suggestion.repository.SuggestionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.shinhansec.marketcapitalization.common.BaseEntityStatus.ACTIVE;
 import static com.shinhansec.marketcapitalization.common.BaseEntityStatus.INACTIVE;
@@ -30,6 +37,7 @@ public class StockService {
     private final MemberRepository memberRepository;
     private final MeetingRepository meetingRepository;
     private final PortfolioRepository portfolioRepository;
+    private final SuggestionRepository suggestionRepository;
 
     @Transactional
     public BaseResponseStatus tradeStock(Long loginUserId, Long stockId, String meetingId, TradeStockReqDto reqDto) throws BaseException {
@@ -93,5 +101,40 @@ public class StockService {
 
     public boolean checkMemberIsInMeeting(Member member, Meeting meeting) {
         return participationRepository.existsByMemberAndMeetingAndStatus(member, meeting, ACTIVE);
+    }
+
+    public SuggestedStockResDto getSuggestedStock(Long loginUserId) throws BaseException {
+        try {
+            Member member = memberRepository.findById(loginUserId).orElseThrow(() -> new BaseException(INVALID_MEMBER_ID));
+
+            String age = member.getAge() + " ";
+            char[] ageCharArray = age.toCharArray();
+
+            if (ageCharArray[1] >= 5) {
+                ageCharArray[2] = 's';
+            } else {
+                ageCharArray[2] = 'e';
+            }
+
+            ageCharArray[1] = 0;
+            age = Arrays.toString(ageCharArray);
+
+            List<Pair<Stock, Boolean>> stockPairList = stockRepository.findByAgeAndGender(age, member.getGender()).stream().map(
+                    stock -> {
+                        Boolean isLiked = suggestionRepository.existsByMemberAndStockAndStatus(member, stock, ACTIVE);
+                        return new Pair<Stock, Boolean>(stock, isLiked);
+                    }
+            ).collect(Collectors.toList());
+
+            SuggestedStockResDto suggestedStockResDto = new SuggestedStockResDto(stockPairList.get(0).a.getKeyword());
+            suggestedStockResDto.appendSuggestedStock(stockPairList);
+
+            return suggestedStockResDto;
+
+        } catch (BaseException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 }
