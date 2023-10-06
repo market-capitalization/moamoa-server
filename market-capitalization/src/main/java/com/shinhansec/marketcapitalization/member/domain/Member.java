@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static jakarta.persistence.GenerationType.*;
+import static jakarta.persistence.EnumType.STRING;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
@@ -17,10 +18,23 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
+    private int age;
+
+    @Enumerated(STRING)
+    private Gender gender;
+
     private String nickname;
 
+    public void modifyMember(int age, Gender gender, String nickname) {
+        this.age = age;
+        this.gender = gender;
+        this.nickname = nickname;
+    }
+
     @Builder
-    public Member(String nickname) {
+    public Member(int age, Gender gender, String nickname) {
+        this.age = age;
+        this.gender = gender;
         this.nickname = nickname;
     }
 }
