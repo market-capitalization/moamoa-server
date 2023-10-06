@@ -6,12 +6,14 @@ import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Suggestion extends BaseEntity {
 
     @Id
