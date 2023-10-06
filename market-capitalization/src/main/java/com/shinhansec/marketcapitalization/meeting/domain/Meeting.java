@@ -64,4 +64,16 @@ public class Meeting extends BaseEntity {
         this.attendanceCount = attendanceCount;
         this.deadlineDate = deadlineDate;
     }
+
+    @Builder
+    public Meeting(String name, int attendanceCount,
+                   ParticipantType particiPantType, PurposeType purposeType,
+                   int profitTarget, LocalDateTime deadlineDate) {
+        this.name = name;
+        this.attendanceCount = attendanceCount;
+        this.particiPantType = particiPantType;
+        this.purposeType = purposeType;
+        this.profitTarget = profitTarget;
+        this.deadlineDate = deadlineDate;
+    }
 }

@@ -21,11 +21,13 @@ public class GetAllMeetingResDto {
     }
 
     public static class MeetingResDto {
+        public String meetingId;
         public String meetingName;
         public int investmentReturn;
         public int profitTarget;
 
         public MeetingResDto(Meeting meeting) {
+            this.meetingId = meeting.getId();
             this.meetingName = meeting.getName();
             this.investmentReturn = 0;
             this.profitTarget = meeting.getProfitTarget();
