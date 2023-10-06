@@ -122,7 +122,7 @@ public class StockService {
             List<Pair<Stock, Boolean>> stockPairList = stockRepository.findByAgeAndGender(age, member.getGender()).stream().map(
                     stock -> {
                         Boolean isLiked = suggestionRepository.existsByMemberAndStockAndStatus(member, stock, ACTIVE);
-                        return new Pair(stock, isLiked);
+                        return new Pair<Stock, Boolean>(stock, isLiked);
                     }
             ).collect(Collectors.toList());
 

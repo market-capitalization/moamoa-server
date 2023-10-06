@@ -127,6 +127,6 @@ public class MeetingService {
     }
 
     public Boolean checkIsParticipate(Member member, Meeting meeting) {
-        return participationRepository.existsByMemberAndMeeting(member, meeting);
+        return participationRepository.existsByMemberAndMeetingAndStatus(member, meeting, ACTIVE);
     }
 }
