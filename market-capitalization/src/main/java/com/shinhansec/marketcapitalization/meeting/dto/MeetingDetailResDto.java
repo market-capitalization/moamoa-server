@@ -10,9 +10,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Data
 @NoArgsConstructor
@@ -30,7 +31,7 @@ public class MeetingDetailResDto {
     private int profitTarget;
 
     // d-day
-    private int deadlineDate;
+    private long deadlineDate;
 
     private List<CurrentPortfolio> currentPortfolios = new ArrayList<>();
 
@@ -53,7 +54,7 @@ public class MeetingDetailResDto {
         this.purposeType = meeting.getPurposeType();
         this.totalInvestment = meeting.getTotalInvestment();
         this.profitTarget = meeting.getProfitTarget();
-        this.deadlineDate = Period.between(LocalDateTime.now().toLocalDate(), meeting.getDeadlineDate().toLocalDate()).getDays();
+        this.deadlineDate = DAYS.between(LocalDateTime.now().toLocalDate(), meeting.getDeadlineDate().toLocalDate());
 
         for (Portfolio portfolio : portfolioList) {
             this.currentPortfolios.add(new CurrentPortfolio(portfolio));

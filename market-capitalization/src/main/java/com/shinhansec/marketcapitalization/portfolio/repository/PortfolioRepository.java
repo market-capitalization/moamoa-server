@@ -14,7 +14,7 @@ import java.util.List;
 public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
 
     @Query(value = "select p from Portfolio p join fetch p.stock as s " +
-            "where p.meeting = :meeting and p.status =: status")
+            "where p.meeting = :meeting and p.status = :status")
     List<Portfolio> findActivePortfoliosByMeeting(@Param(value = "meeting") Meeting meeting,
                                                   @Param(value = "status") BaseEntityStatus status);
 }
