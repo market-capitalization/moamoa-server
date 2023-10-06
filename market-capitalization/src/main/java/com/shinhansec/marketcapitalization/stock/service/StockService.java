@@ -87,6 +87,7 @@ public class StockService {
         } catch (BaseException e) {
             throw e;
         } catch (Exception e) {
+            System.err.println(e);
             throw new BaseException(DATABASE_ERROR);
         }
     }

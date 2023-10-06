@@ -49,9 +49,11 @@ public class Portfolio extends BaseEntity {
         long totalPrice = this.holdingQuantity * this.averagePurchasePrice;
         totalPrice = totalPrice - (quantity * currentStockValue);
         this.holdingQuantity -= quantity;
-        this.averagePurchasePrice = totalPrice / this.holdingQuantity;
         if (this.holdingQuantity <= 0) {
+            this.averagePurchasePrice = 0L;
             this.setStatus(INACTIVE);
+        } else {
+            this.averagePurchasePrice = totalPrice / this.holdingQuantity;
         }
     }
 
