@@ -99,6 +99,7 @@ public class MeetingService {
         }
     }
 
+    // TODO: test 필요
     public MeetingDetailResDto getMeetingDetail(Long userId, String meetingId) throws BaseException {
         try {
             Member member = memberRepository.findById(userId).orElseThrow(
