@@ -21,6 +21,7 @@ public class GetAllMeetingResDto {
     }
 
     public static class MeetingResDto {
+        // TODO: meeting id 추가
         public String meetingName;
         public int investmentReturn;
         public int profitTarget;

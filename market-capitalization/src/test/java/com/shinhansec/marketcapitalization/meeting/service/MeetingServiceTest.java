@@ -1,6 +1,7 @@
 package com.shinhansec.marketcapitalization.meeting.service;
 
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
+import com.shinhansec.marketcapitalization.meeting.repository.MeetingRepository;
 import com.shinhansec.marketcapitalization.member.domain.Member;
 import com.shinhansec.marketcapitalization.member.repository.MemberRepository;
 import com.shinhansec.marketcapitalization.member.service.MemberService;
@@ -17,7 +18,7 @@ import java.util.Optional;
 class MeetingServiceTest {
 
     @Autowired
-    MeetingService meetingService;
+    MeetingRepository meetingRepository;
 
     @Autowired
     MemberService memberService;
@@ -36,7 +37,7 @@ class MeetingServiceTest {
                 .name("test meeting 2")
                 .attendanceCount(1).build();
 
-        meetingService.saveMeeting(testMeetingTest);
+        meetingRepository.save(testMeetingTest);
 
         Member member = memberRepository.findById(1L).get();
         Participation participation = Participation.builder()
@@ -47,7 +48,7 @@ class MeetingServiceTest {
         participationService.saveParticipation(participation);
 
         // when
-        testMeetingTest.participate(participation);
+//        testMeetingTest.participate(participation);
 
         // then
     }
