@@ -27,6 +27,7 @@ public class SuggestedStockResDto {
         }
     }
 
+    @Data
     public static class SuggestedStock {
         private String stockName;
         private Boolean isLiked;

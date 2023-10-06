@@ -1,4 +1,4 @@
-package com.shinhansec.marketcapitalization.stock.service;
+package com.shinhansec.marketcapitalization.stock.dto;
 
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import lombok.AllArgsConstructor;
@@ -25,6 +25,7 @@ public class RecommendedStocksResDto {
         }
     }
 
+    @Data
     public static class RecommendedStock {
         private Long stockId;
         private String stockName;

@@ -20,6 +20,7 @@ public class GetAllMeetingResDto {
         }
     }
 
+    @Data
     public static class MeetingResDto {
         public String meetingId;
         public String meetingName;

@@ -14,7 +14,6 @@ import com.shinhansec.marketcapitalization.participation.domain.Participation;
 import com.shinhansec.marketcapitalization.participation.repository.ParticipationRepository;
 import com.shinhansec.marketcapitalization.portfolio.domain.Portfolio;
 import com.shinhansec.marketcapitalization.portfolio.repository.PortfolioRepository;
-import com.shinhansec.marketcapitalization.stock.service.RecommendedStocksResDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

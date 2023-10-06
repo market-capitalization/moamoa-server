@@ -8,7 +8,7 @@ import com.shinhansec.marketcapitalization.member.domain.Member;
 import com.shinhansec.marketcapitalization.member.repository.MemberRepository;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
-import com.shinhansec.marketcapitalization.stock.service.RecommendedStocksResDto;
+import com.shinhansec.marketcapitalization.stock.dto.RecommendedStocksResDto;
 import com.shinhansec.marketcapitalization.suggestion.domain.Suggestion;
 import com.shinhansec.marketcapitalization.suggestion.repository.SuggestionRepository;
 import jakarta.transaction.Transactional;

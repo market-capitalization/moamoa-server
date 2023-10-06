@@ -35,6 +35,7 @@ public class MeetingDetailResDto {
 
     private List<CurrentPortfolio> currentPortfolios = new ArrayList<>();
 
+    @Data
     public static class CurrentPortfolio {
         private String stockName;
         private Long holdingQuantity;
