@@ -4,6 +4,7 @@ import com.shinhansec.marketcapitalization.common.BaseEntity;
 import com.shinhansec.marketcapitalization.member.domain.Member;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -25,4 +26,10 @@ public class Suggestion extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @Builder
+    public Suggestion(Stock stock, Member member) {
+        this.stock = stock;
+        this.member = member;
+    }
 }
