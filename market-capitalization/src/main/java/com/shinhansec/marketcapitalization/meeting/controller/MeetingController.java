@@ -35,6 +35,7 @@ public class MeetingController {
         }
     }
 
+    // TODO: 여기서 권한 거부 에러가 뜨면 participate meeting으로 redirect 해야할 듯.
     @GetMapping("/{meetingId}")
     public BaseResponse<?> getMeetingDetails(@RequestHeader("authorization") Long userId,
                                              @PathVariable("meetingId") String meetingId) {
