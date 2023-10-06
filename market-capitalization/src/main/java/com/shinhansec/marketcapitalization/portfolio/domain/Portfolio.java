@@ -2,6 +2,7 @@ package com.shinhansec.marketcapitalization.portfolio.domain;
 
 import com.shinhansec.marketcapitalization.common.BaseEntity;
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
+import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import jakarta.persistence.*;
 import lombok.Getter;
 
