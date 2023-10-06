@@ -13,11 +13,13 @@ public enum BaseResponseStatus {
     /**
      * 2000: Request Error
      */
+    NOT_YOUR_PROFILE(false, 2000, "자신의 프로필이 아니므로 수정이 불가능합니다."),
 
     /**
      * 3000: Response Error
      */
     INVALID_MEMBER_ID(false, 3000, "유저 아이디가 유효하지 않습니다."),
+    DUPLICATE_NICK(false, 3001, "유저 닉네임이 중복됩니다."),
 
     INVALID_MEETING_ID(false, 3200, "모임 아이디가 유효하지 않습니다."),
     FULL_MEETING(false, 3201, "이미 모임이 가득 찼습니다"),

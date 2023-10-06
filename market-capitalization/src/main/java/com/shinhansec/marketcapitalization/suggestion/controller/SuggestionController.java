@@ -13,7 +13,7 @@ public class SuggestionController {
     private final SuggestionService suggestionService;
 
     @PostMapping("")
-    public BaseResponse<?> makeSuggestion(@RequestHeader("userId") Long userId,
+    public BaseResponse<?> makeSuggestion(@RequestHeader("authorization") Long userId,
                                           @RequestParam("stockId") Long stockId) {
         try {
             return new BaseResponse<>(suggestionService.saveNewSuggestion(userId, stockId));
