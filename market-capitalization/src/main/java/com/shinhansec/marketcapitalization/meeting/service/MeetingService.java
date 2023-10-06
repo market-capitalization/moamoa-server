@@ -46,7 +46,7 @@ public class MeetingService {
     }
 
     @Transactional
-    public BaseResponseStatus saveMeeting(SaveMeetingReqDto meetingReqDto, Long userId) throws BaseException {
+    public String saveMeeting(SaveMeetingReqDto meetingReqDto, Long userId) throws BaseException {
         try {
 
             Member member = memberRepository.findById(userId).orElseThrow(
@@ -60,7 +60,7 @@ public class MeetingService {
                     .meeting(newMeeting).build();
             participationRepository.save(participation);
 
-            return SUCCESS;
+            return newMeeting.getId();
         } catch (BaseException e) {
             throw e;
         } catch (Exception e) {
