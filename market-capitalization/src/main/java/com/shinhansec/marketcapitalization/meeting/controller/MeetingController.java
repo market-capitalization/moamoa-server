@@ -34,6 +34,17 @@ public class MeetingController {
         }
     }
 
+    @GetMapping("/{meetingId}")
+    public BaseResponse<?> getMeetingDetails(@RequestHeader("authorization") Long userId,
+                                             @PathVariable("meetingId") String meetingId) {
+        try {
+            return new BaseResponse<>(meetingService.getMeetingDetail(userId, meetingId));
+        } catch (BaseException e) {
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+
     @PostMapping("/{meetingId}")
     public BaseResponse<?> participateMeeting(@RequestHeader("authorization") Long userId,
                                               @PathVariable("meetingId") String meetingId) {
