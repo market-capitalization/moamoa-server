@@ -1,12 +1,11 @@
 package com.shinhansec.marketcapitalization.stock.domain;
 
 import com.shinhansec.marketcapitalization.common.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.shinhansec.marketcapitalization.member.domain.Gender;
+import jakarta.persistence.*;
 import lombok.Getter;
 
+import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -20,5 +19,10 @@ public class Stock extends BaseEntity {
 
     private String stockName;
 
-    private int currentValue;
+    @Enumerated(STRING)
+    private Gender gender;
+
+    private String age;
+
+    private String keyword;
 }
