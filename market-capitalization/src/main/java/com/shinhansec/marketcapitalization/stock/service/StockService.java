@@ -122,6 +122,8 @@ public class StockService {
 
             System.out.println(age);
 
+
+            // TODO: 쿼리 10개씩 날아감....!!!
             List<Pair<Stock, Boolean>> stockPairList = stockRepository.findByAgeAndGender(age, member.getGender()).stream().map(
                     stock -> {
                         Boolean isLiked = suggestionRepository.existsByMemberAndStockAndStatus(member, stock, ACTIVE);
