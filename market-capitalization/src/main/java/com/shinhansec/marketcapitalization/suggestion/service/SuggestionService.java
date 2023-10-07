@@ -6,6 +6,7 @@ import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
 import com.shinhansec.marketcapitalization.meeting.repository.MeetingRepository;
 import com.shinhansec.marketcapitalization.member.domain.Member;
 import com.shinhansec.marketcapitalization.member.repository.MemberRepository;
+import com.shinhansec.marketcapitalization.stock.domain.RecommendedStockRepoInterface;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
 import com.shinhansec.marketcapitalization.stock.dto.RecommendedStocksResDto;
 import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
@@ -13,7 +14,6 @@ import com.shinhansec.marketcapitalization.suggestion.domain.Suggestion;
 import com.shinhansec.marketcapitalization.suggestion.repository.SuggestionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,13 +41,14 @@ public class SuggestionService {
                     () -> new BaseException(INVALID_MEETING_ID));
 
 
-            List<Pair<String, Integer>> mostRecommendedStockInMeeting
+            List<RecommendedStockRepoInterface> mostRecommendedStockInMeeting
                     = stockRepository.findMostRecommendedStockInMeeting(meeting, ACTIVE);
 
             List<RecommendedStock> recommendedStockList = new ArrayList<>();
-            for (Pair<String, Integer> stringIntegerPair : mostRecommendedStockInMeeting) {
-                Boolean isLiked = suggestionRepository.existsByMemberAndStockNameAndStatus(member, stringIntegerPair.a, ACTIVE);
-                RecommendedStock stock = new RecommendedStock(stringIntegerPair.a, isLiked, stringIntegerPair.b);
+            for (RecommendedStockRepoInterface repoInterface : mostRecommendedStockInMeeting) {
+                Boolean isLiked = suggestionRepository.existsByMemberAndStockNameAndStatus(member, repoInterface.getStockName(), ACTIVE);
+                RecommendedStock stock
+                        = new RecommendedStock(repoInterface.getStockName(), isLiked, repoInterface.getTotal());
                 recommendedStockList.add(stock);
             }
 

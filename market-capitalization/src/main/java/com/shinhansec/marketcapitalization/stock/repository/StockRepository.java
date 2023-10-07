@@ -3,8 +3,8 @@ package com.shinhansec.marketcapitalization.stock.repository;
 import com.shinhansec.marketcapitalization.common.BaseEntityStatus;
 import com.shinhansec.marketcapitalization.meeting.domain.Meeting;
 import com.shinhansec.marketcapitalization.member.domain.Gender;
+import com.shinhansec.marketcapitalization.stock.domain.RecommendedStockRepoInterface;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
-import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,14 +16,11 @@ import java.util.List;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
     // TODO: 테스트 필요
-    @Query(value = "select distinct s.stockName, count(s.stockName) as total from Stock s where s.id in " +
-            "(select su.id from Suggestion su where su.member in " +
-            "(select p.member from Participation p where p.meeting = :meeting)) " +
-            "and s.status = :status " +
-            "group by s.stockName " +
-            "order by total desc ")
-    List<Pair<String, Integer>> findMostRecommendedStockInMeeting(@Param("meeting") Meeting meeting,
-                                                                  @Param("status") BaseEntityStatus status);
+    @Query(value =  "select su.stockName as stockName, count(su.stockName) as total from Suggestion as su where su.member in " +
+            "(select p.member from Participation as p where p.meeting = :meeting) and su.status = :status " +
+            "group by su.stockName order by total desc")
+    List<RecommendedStockRepoInterface> findMostRecommendedStockInMeeting(@Param("meeting") Meeting meeting,
+                                                                          @Param("status") BaseEntityStatus status);
 
     List<Stock> findByAgeAndGender(String age, Gender gender);
 }
