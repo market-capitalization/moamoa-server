@@ -51,7 +51,7 @@ public class MeetingDetailResDto {
     @Builder
     public MeetingDetailResDto(Meeting meeting, List<Portfolio> portfolioList) {
         this.meetingName = meeting.getName();
-        this.particiPantType = meeting.getParticiPantType();
+        this.particiPantType = meeting.getParticipantType();
         this.purposeType = meeting.getPurposeType();
         this.totalInvestment = meeting.getTotalInvestment();
         this.profitTarget = meeting.getProfitTarget();

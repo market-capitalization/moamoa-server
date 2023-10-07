@@ -24,7 +24,7 @@ public class SaveMeetingReqDto {
     public Meeting toEntity() {
         return Meeting.builder()
                 .purposeType(purposeType)
-                .particiPantType(participantType)
+                .participantType(participantType)
                 .profitTarget(profitTarget)
                 .deadlineDate(deadlineDate)
                 .name(meetingName)

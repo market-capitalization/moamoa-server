@@ -33,7 +33,7 @@ public class Meeting extends BaseEntity {
     private int attendanceCount;
 
     @Enumerated(STRING)
-    private ParticipantType particiPantType;
+    private ParticipantType participantType;
 
     @Enumerated(STRING)
     private PurposeType purposeType;
@@ -70,20 +70,13 @@ public class Meeting extends BaseEntity {
         this.totalInvestment += price;
     }
 
-    @Builder(builderMethodName = "testBuild")
-    public Meeting(String name, int attendanceCount, LocalDateTime deadlineDate) {
-        this.name = name;
-        this.attendanceCount = attendanceCount;
-        this.deadlineDate = deadlineDate;
-    }
-
     @Builder
     public Meeting(String name, int attendanceCount,
-                   ParticipantType particiPantType, PurposeType purposeType,
+                   ParticipantType participantType, PurposeType purposeType,
                    int profitTarget, LocalDateTime deadlineDate) {
         this.name = name;
         this.attendanceCount = attendanceCount;
-        this.particiPantType = particiPantType;
+        this.participantType = participantType;
         this.purposeType = purposeType;
         this.profitTarget = profitTarget;
         this.deadlineDate = deadlineDate;
