@@ -23,12 +23,14 @@ public class RecommendedStocksResDto {
 
     @Data
     public static class RecommendedStock {
+        private Long stockId;
         private String stockName;
         private Boolean isLiked;
         private int recommendedCount;
 
         @Builder
-        public RecommendedStock(String stockName, Boolean isLiked, int recommendedCount) {
+        public RecommendedStock(Long stockId, String stockName, Boolean isLiked, int recommendedCount) {
+            this.stockId = stockId;
             this.stockName = stockName;
             this.isLiked = isLiked;
             this.recommendedCount = recommendedCount;

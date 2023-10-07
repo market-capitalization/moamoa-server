@@ -48,7 +48,7 @@ public class SuggestionService {
             for (RecommendedStockRepoInterface repoInterface : mostRecommendedStockInMeeting) {
                 Boolean isLiked = suggestionRepository.existsByMemberAndStockNameAndStatus(member, repoInterface.getStockName(), ACTIVE);
                 RecommendedStock stock
-                        = new RecommendedStock(repoInterface.getStockName(), isLiked, repoInterface.getTotal());
+                        = new RecommendedStock(repoInterface.getStockId(), repoInterface.getStockName(), isLiked, repoInterface.getTotal());
                 recommendedStockList.add(stock);
             }
 

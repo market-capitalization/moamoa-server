@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-    // TODO: 테스트 필요
-    @Query(value =  "select su.stockName as stockName, count(su.stockName) as total from Suggestion as su where su.member in " +
+    @Query(value =  "select su.stock.id as stockId, su.stockName as stockName, count(su.stockName) as total from Suggestion as su " +
+            "where su.member in " +
             "(select p.member from Participation as p where p.meeting = :meeting) and su.status = :status " +
             "group by su.stockName order by total desc")
     List<RecommendedStockRepoInterface> findMostRecommendedStockInMeeting(@Param("meeting") Meeting meeting,
