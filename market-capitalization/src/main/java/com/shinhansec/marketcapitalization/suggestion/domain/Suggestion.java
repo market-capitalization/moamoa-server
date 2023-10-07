@@ -25,6 +25,9 @@ public class Suggestion extends BaseEntity {
     @JoinColumn(name = "stock_id")
     private Stock stock;
 
+    // 구현을 위해 중복 저장
+    private String stockName;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -32,6 +35,7 @@ public class Suggestion extends BaseEntity {
     @Builder
     public Suggestion(Stock stock, Member member) {
         this.stock = stock;
+        this.stockName = stock.getStockName();
         this.member = member;
     }
 }

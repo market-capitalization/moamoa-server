@@ -7,8 +7,8 @@ import com.shinhansec.marketcapitalization.meeting.repository.MeetingRepository;
 import com.shinhansec.marketcapitalization.member.domain.Member;
 import com.shinhansec.marketcapitalization.member.repository.MemberRepository;
 import com.shinhansec.marketcapitalization.stock.domain.Stock;
-import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
 import com.shinhansec.marketcapitalization.stock.dto.RecommendedStocksResDto;
+import com.shinhansec.marketcapitalization.stock.repository.StockRepository;
 import com.shinhansec.marketcapitalization.suggestion.domain.Suggestion;
 import com.shinhansec.marketcapitalization.suggestion.repository.SuggestionRepository;
 import jakarta.transaction.Transactional;
@@ -16,12 +16,13 @@ import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.Pair;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.shinhansec.marketcapitalization.common.BaseEntityStatus.ACTIVE;
 import static com.shinhansec.marketcapitalization.common.BaseEntityStatus.INACTIVE;
 import static com.shinhansec.marketcapitalization.common.BaseResponseStatus.*;
+import static com.shinhansec.marketcapitalization.stock.dto.RecommendedStocksResDto.RecommendedStock;
 
 @Service
 @RequiredArgsConstructor
@@ -40,17 +41,17 @@ public class SuggestionService {
                     () -> new BaseException(INVALID_MEETING_ID));
 
 
-            List<Pair<Stock, Boolean>> pairList = stockRepository.findMostRecommendedStockInMeeting(meeting, ACTIVE)
-                    .stream().map(
-                            stock -> {
-                                Boolean isExist = suggestionRepository.existsByMemberAndStock(member, stock);
-                                return new Pair<>(stock, isExist);
-                            }
-                    ).collect(Collectors.toList());
+            List<Pair<String, Integer>> mostRecommendedStockInMeeting
+                    = stockRepository.findMostRecommendedStockInMeeting(meeting, ACTIVE);
 
-            return RecommendedStocksResDto.builder()
-                    .stockSuggestionPairList(pairList)
-                    .build();
+            List<RecommendedStock> recommendedStockList = new ArrayList<>();
+            for (Pair<String, Integer> stringIntegerPair : mostRecommendedStockInMeeting) {
+                Boolean isLiked = suggestionRepository.existsByMemberAndStockNameAndStatus(member, stringIntegerPair.a, ACTIVE);
+                RecommendedStock stock = new RecommendedStock(stringIntegerPair.a, isLiked, stringIntegerPair.b);
+                recommendedStockList.add(stock);
+            }
+
+            return new RecommendedStocksResDto(recommendedStockList);
 
         } catch (BaseException e) {
             throw e;
@@ -69,11 +70,15 @@ public class SuggestionService {
             Stock stock = stockRepository.findById(stockId).orElseThrow(
                     () -> new BaseException(INVALID_STOCK_ID));
 
-            if (suggestionRepository.existsByMemberAndStock(member, stock)) {
-                Stock findStock = suggestionRepository.findByMemberAndStock(member, stock).orElseThrow(
-                        () -> new BaseException(DATABASE_ERROR)
-                );
-                findStock.setStatus(INACTIVE);
+            // member - stock name pair 당 하나씩만 생성함.
+            if (suggestionRepository.existsByMemberAndStockName(member, stock.getStockName())) {
+                List<Stock> findStock = suggestionRepository.findByMemberAndStockNameOrderByCreatedDate(
+                        member, stock.getStockName());
+                if (findStock.get(0).getStatus().equals(ACTIVE)) {
+                    findStock.get(0).setStatus(INACTIVE);
+                } else {
+                    findStock.get(0).setStatus(ACTIVE);
+                }
             } else {
                 Suggestion newSuggestion = Suggestion.builder()
                         .member(member)
