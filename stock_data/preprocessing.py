@@ -9,9 +9,10 @@ load_dotenv()
 
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PW = os.getenv("MYSQL_PW")
+MYSQL_ENDPOINT = os.getenv("MYSQL_ENDPOINT")
 TABLE_NAME = "stock"
 
-engine = create_engine(f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PW}@127.0.0.1:3306/market-capital-db?charset=utf8")
+engine = create_engine(f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PW}@{MYSQL_ENDPOINT}:3306/market-capital-db?charset=utf8")
 connection = engine.connect()
 
 df = pd.read_csv("./stock_data/csv-data/stock.csv", encoding="utf-8")
