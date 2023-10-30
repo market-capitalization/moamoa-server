@@ -81,7 +81,7 @@
 
 <br>
 
-## Github Rule
+## 💸 Github Rule
 ### Commit Message
 > `commit-type`: description
 ```
@@ -114,7 +114,7 @@ Feat: getProfileTab
     - merge한 뒤, 이후에 사용하지 않는 브랜치라면 삭제하는 것이 좋습니다.
 > `branch-type`/description
 ```
-feature/13-like-post
+feature/buy-stock
 ```
 - `branch-type`
     - 주로 `feature`를 사용합니다.
@@ -123,5 +123,11 @@ feature/13-like-post
 ### Pull Request
 > [`branch-name`] feature-description
 ```
-[feature/7-googleLogin] 구글 로그인
+[feature/buy-stock] 주식 매수
 ```
+
+<br>
+
+## 💸 OSS Notice
+
+
