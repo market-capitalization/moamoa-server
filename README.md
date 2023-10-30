@@ -81,6 +81,25 @@
 
 <br>
 
+## 💸 OSS Notice
+#### Open Source Software Notice
+
+This application is Copyright © DUST DRIVE Team. All rights reserved.
+
+[spring-boot](https://github.com/spring-projects/spring-boot)
+
+> Spring Boot is Open Source software released under the Apache 2.0 license.
+
+[spring-framework](https://github.com/spring-projects/spring-framework)
+
+> The Spring Framework is released under version 2.0 of the Apache License.
+
+[spring-data-jpa](https://github.com/spring-projects/spring-data-jpa)
+
+> Spring Data JPA is Open Source software released under the Apache 2.0 license.
+
+<br>
+
 ## 💸 Github Rule
 ### Commit Message
 > `commit-type`: description
@@ -127,7 +146,5 @@ feature/buy-stock
 ```
 
 <br>
-
-## 💸 OSS Notice
 
 
